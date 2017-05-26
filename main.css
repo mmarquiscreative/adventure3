@@ -12,7 +12,17 @@
     font-size: 50px;
     padding-top: 10px;
     color: url(Animated_fire_by_nevit.gif) left top no-repeat;
-    
+    box-shadow: 1px 1px 5px #888888;
+}
+
+#battleBoxPar {
+    font-size: 20px;
+}
+
+#battleVs {
+    font-size: 25px;
+    margin-bottom: -10px; 
+    margin-top: 10px;
 }
 
 #battleBoxHead {
@@ -22,6 +32,7 @@
     background: url(Animated_fire_by_nevit.gif) left -90px;
   color: white;
     background-size: cover;
+    
 }
 .clearFix:after {
   content: "";
@@ -42,30 +53,41 @@ h1, h4 {
     color: #c93900;
 }
 
+.stats {
+    border-bottom: 1px solid #d8d8d8;
+    padding-bottom: 20px;
+
+}
+
 #heroStats, #enemyStats {
-    color: #fff;
+    color: #2b0000;
     background: #333333;
     width: 100%;
     padding: 5px;
 
 }
 
-#heroStats > h4, #enemyStats > h4 {
+#heroStats > p, #enemyStats > p {
+    font-size: 15px;
+    margin-bottom: -10px;
+}
+
+#heroStats > h4, #enemyStats > h4, #heroStats > p, #enemyStats > p {
     color: #fff;
 }
 
 #heroStats{
-    background-color:#3a630d; 
+    background-color:#ad390c; 
     float: left;
     width: 48%;
-    color: #fff;
+    box-shadow: 1px 1px 5px #888888;
 }
 
 #enemyStats{
-    background-color:#350404; 
+    background-color:#607c9e; 
     float: right;
     width: 48%;
-    color: #fff;
+    box-shadow: 1px 1px 5px #888888
 }
 
 .battleLoop {
