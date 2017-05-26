@@ -3,36 +3,35 @@
     <head>
         <title>Adventure</title>
         <link type="text/css" rel="stylesheet" href="main.css">
+        <link type="text/css" rel="stylesheet" href="bootstrap-theme.css">
     </head>
     <body>
-        <h1>DOM Doom Adventure</h1>
-        <img id="splashImage" src="header_img_dragon.jpg">
-
-    <div class="battleLoop hide">
-        <div id="battleHeadFlames">
+        <div class="container-fluid"><h1>DOM Doom Adventure</h1>
+        <img id="splashImage" src="header_img_dragon.jpg"></div>
+        <div class="battleLoop">
+        <div class="container-fluid" id="battleHeadFlames">
                 <h4 id="battleBoxHead">Hero vs Valley Orcs</h4>
         </div>
-        <div class="battleBox">
+        <div class="battleBox container-fluid">
             <div id="storyBoxBattle">
                 
                 <p id="battleBoxPar">So and so attacked with such and such!</p>
             </div>
             <div class="stats clearFix">
-            <div class="active" id="heroStats">
+            <div class="active col-md-6" id="heroStats">
                     <p id="heroStatTitle">Hero Stats:</p>
                     <h4 id="heroStatsData"> Health: 100 — Potions: 2</h4>
             </div>
-            <div class="inactive" id="enemyStats">
+            <div class="inactive col-md-6" id="enemyStats">
                     <p id="enemyStatTitle">Enemy Stats:</p>
                     <h4 id="enemyStatsData"> Health: 100 — Potions: 2</h4>
             </div>
                 </div>
-            <div class="effect">
-            <h4 id="storyQuestion">What would you like to do?</h4>
-            <input id="attack" class="btn-style" type="button" value="Attack" onclick="attackDamage (orc, adventurer)">
-            <input id="defend" class="btn-style" type="button" value="Defend" onclick="readyToPlay ()">
-            <input id="potion" class="btn-style" type="button" value="Drink Potion" onclick="readyToPlay ()">
-            
+            <div class="effectContainer" >
+                <h4 id="storyQuestion">What would you like to do?</h4>
+                <input id="attack" class="btn-style" type="button" value="Attack" >
+                <input id="defend" class="btn-style" type="button" value="Defend" onclick="readyToPlay ()">
+                <input id="potion" class="btn-style" type="button" value="Drink Potion" onclick="readyToPlay ()">
         </div>
             </div>
         </div>
