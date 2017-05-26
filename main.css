@@ -15,6 +15,40 @@
     box-shadow: 1px 1px 5px #888888;
 }
 
+.effectFire {
+    background: url(effectFire.gif) center center;
+        background-size: cover;
+
+}
+
+.effectIce {
+    background: url(effectIce.gif) center center;
+        background-size: cover;
+
+}
+
+.effectOther {
+    background: url(effectOther.gif) center center;
+        background-size: cover;
+
+}
+
+.effectPoison {
+    background: url(effectPoison.gif) center center;
+        background-size: cover;
+}
+
+.effectPotion {
+    background: url(effectPotion.gif) center center;
+    background-size: cover;
+}
+
+.effectContainer {
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+
+
 #battleBoxPar {
     font-size: 20px;
 }
@@ -23,6 +57,10 @@
     font-size: 25px;
     margin-bottom: -10px; 
     margin-top: 10px;
+}
+
+#attack, #defend, #potion {
+    margin: 0px 10px;
 }
 
 #battleBoxHead {
@@ -44,8 +82,10 @@ body {
     width: 100%;
 }
 
+}
 .effect {
-    padding-top: 10px;
+    height: 200px;
+    padding-top: 200px;
     background: url(' ') left;
     background-size: cover;
     padding-bottom: 30px;
@@ -164,8 +204,8 @@ p {
     display: none;
 }
 .btn-style {
-    margin: 0px 20px;
-    width: 30%;
+    margin: 0px 0px;
+    width: 20%;
 }
 .btn-style{
 	border : solid 1px #ffffff;
