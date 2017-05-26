@@ -10,30 +10,32 @@
 
     <div class="battleLoop hide">
         <div id="battleHeadFlames">
-                <h4 id="battleBoxHead">Battle Round</h4>
+                <h4 id="battleBoxHead">Hero vs Valley Orcs</h4>
         </div>
         <div class="battleBox">
             <div id="storyBoxBattle">
-                <h4 id="battleVs">Hero vs Valley Orcs (like totally)</h4>
+                
                 <p id="battleBoxPar">So and so attacked with such and such!</p>
             </div>
             <div class="stats clearFix">
-            <div id="heroStats">
+            <div class="active" id="heroStats">
                     <p id="heroStatTitle">Hero Stats:</p>
                     <h4 id="heroStatsData"> Health: 100 — Potions: 2</h4>
             </div>
-            <div id="enemyStats">
+            <div class="inactive" id="enemyStats">
                     <p id="enemyStatTitle">Enemy Stats:</p>
                     <h4 id="enemyStatsData"> Health: 100 — Potions: 2</h4>
             </div>
                 </div>
+            <div class="effect">
             <h4 id="storyQuestion">What would you like to do?</h4>
-            <input id="beginAdventure" class="btn-style" type="button" value="Attack" onclick="readyToPlay ()">
-            <input id="beginAdventure" class="btn-style" type="button" value="Defend" onclick="readyToPlay ()">
-            <input id="beginAdventure" class="btn-style" type="button" value="Drink Potion" onclick="readyToPlay ()">
+            <input id="attack" class="btn-style" type="button" value="Attack" onclick="attackDamage (orc, adventurer)">
+            <input id="defend" class="btn-style" type="button" value="Defend" onclick="readyToPlay ()">
+            <input id="potion" class="btn-style" type="button" value="Drink Potion" onclick="readyToPlay ()">
             
         </div>
             </div>
+        </div>
         <div class="multiChoiceBox hide">
             <div id="storyBox">
                 <h4 id="storyBoxHead">Story Box Title</h4>
