@@ -100,11 +100,11 @@ function modifyBattlePar(text){
     document.querySelector('#battleBoxPar').innerHTML=text;
 };
 function modifyHeroStat(){
-    document.querySelector('#heroStatsData').innerHTML=adventurer.health + "  |  " + adventuerer.potion;
+    document.querySelector('#heroStatsData').innerHTML="Health " + adventurer.health + " — " + "Potions: " + adventurer.potion;
 };
 
 function modifyEnemyStat(enemyhealth, enemypotion){
-    document.querySelector('#StatsData').innerHTML=enemyhealth + "  |  " + enemypotion;
+    document.querySelector('#enemyStatsData').innerHTML="Health " + enemyhealth + " — " + "Potions: " + enemypotion;
 };
 // update Story Question
 function modifyStoryQuestion(text) {
@@ -208,18 +208,53 @@ function sequence1n1 () {
     modifyStoryPar('After an hour of travel you arrive at the base of the Black Mountains. Proceeding with caution you begin climbing toward a small cave on the mountain side. Half way to the cave you hear a small rockslide to your left. You turn just in time to dodge an incoming arrow. <br/><br/>An orc comes barreling toward you.');
 }
     
+function flickerBlink(effectClass, howMany){
+    var counter = 0;
+    var flicker = setInterval(function(){
+    counter++;
+    console.log("Counter is at" + counter);
+        console.log(effectClass);
+    document.querySelector('.effectContainer').classList.toggle("'" + effectClass + "'");
+    console.log('enemyFlicker On');
+    if (counter > howMany) {
+        clearInterval(flicker);
+        console.log("Clear Interval Passed");
+        }
+    }, 40);
+}
 
     
 //1n2//////////////////////
+document.querySelector('#attack').addEventListener('click', attackDamage('Orc', 'Adventurer'));
+document.querySelector('#attack').addEventListener('click', toggleEffect, 'effectFire');
+
+document.querySelector('#defend').addEventListener('click', toggleEffect, 'effectOther');
+
+document.querySelector('#potion').addEventListener('click', toggleEffect, 'effectPotion');
+
+function toggleEffect(effectName) {
+    console.log(effectName);
+flickerBlink(effectName, 16);
+setTimeout(flickerBlink, 1800, effectName, 8)
+
+}
+
+/*function effectFire() {
+document.querySelector('.effectContainer').classList.toggleEffect('effectFire');
+    console.log('ranEffectFire');
+} */
 
 var sequenceArray1n2 = ['.battleLoop', '.choiceBox', '#crap'];
 function sequence1n2 () {
     toggleHide(sequenceArray1n2);
-    document.querySelector('#attack').addEventListener('click', attackDamage(adventurer, orc));
     
-}function attackDamage(damageTarget, damageSource) {
+    
+}
+
+function attackDamage(damageTarget, damageSource) {
     if (damageTarget !== 'Adventurer') {
-        modifyBattlePar('You attack the ' + damageTarget.name + ' your ' + weapon + ' dealing ' + adventurer.attack + ' damage!');
+        modifyBattlePar('You attack with your ' + weapon + ' dealing ' + adventurer.attack + ' damage!');
+        console.log
     switch(damageTarget) {
         case 'Orc': 
             orc.health -= adventurer.attack;
@@ -329,269 +364,3 @@ function getTextInput() {
 
     //pauseScript === false;
 }
-/*
-////////// Last version  below
-
-// Update Story Box functions 
-// Sets a delay for story box updates
-function updateStoryBox(text1, time) {
-    window.setTimeout(updateStory, time, text1);
-
-}
-// updates the 'Story Box' id in the html
-function updateStory(text) {
-    document.getElementById('storyBox').textContent = text;
-    console.log('running UpdateStory');
-
-}
-
-/////////////
-function popUps(type, text){
-                    console.log('started popUps')
-     window.setTimeout(type, storyBoxDelay, text);
-                    console.log('finished popUps')
-
-}
-
-
-// simple updates to story box
-
-function modifyStoryPar(text) {
-                    console.log('started modifyStoryPar')
-    updateStoryBox(text, storyBoxDelay);
-                    console.log('finished modifyStoryPar')
-}
-
-// Typed Replies
-
-function prompts(text) {
-                    console.log('started prompts')
-    document.getElementById('response').classList.toggle('hide');
-    updateStoryBox(text, storyBoxDelay);
-                    console.log('finished prompts')
-    //pauseScript === true;
-}
-
-// Yes or No button answers
-
-function confirms(text) {
-                    console.log('started confirms')
-    document.getElementById('yesNo').classList.toggle('hide');
-    updateStoryBox(text, storyBoxDelay);
-    document.getElementById('yes').addEventListener('click', returnYes);
-    document.getElementById('no').addEventListener('click', returnNo)
-                    console.log('finished confirms')
-    //pauseScript === true;
-}
-
-function returnYes() {
-                    console.log('started returnYes')
-    yesNo === true;
-    document.getElementById('yesNo').classList.toggle('hide');
-                    console.log('finished returnYes')
-}
-    
-function returnNo() {
-                    console.log('started returnNo')
-    yesNo === false;
-    document.getElementById('yesNo').classList.toggle('hide');
-                    console.log('finished returnNo')
-}
-/////////////////////////
-// Part One            //   
-/////////////////////////
-
-function gameStart (){
-                    console.log('started gameStart')
-updateStory('The land is in peril. We have been overrun with Orcs and need your help!');
-    popUps(prompts, 'What is your name?');
-    var namePlayer = textInput;
-    popUps(confirms, 'Will you help us?');
-    if (yesNo === true) {
-        modifyStoryPar('We are most gracious! To help you on this quest you may select a weapon of your choice!');
-
-        //Begin Weapon Select
-        prompts('Would you like a sword, axe, mace, or bow?');
-        switch (textInput) {
-            case 'sword':
-                modifyStoryPar('That is the sharpest sword in all the land!');
-                adventurer.attack = adventurer.attack + weaponStrength[Math.floor(Math.random () * weaponStrength.length)];
-                console.log('Hero attack now ' + adventurer.attack);
-                break;
-            case 'axe':
-                modifyStoryPar('That axe will help you tear throw a lot of Orcs. Use it wisely.');
-                adventurer.attack = adventurer.attack + weaponStrength[Math.floor(Math.random () * weaponStrength.length)];
-                console.log('Hero attack now ' + adventurer.attack);
-                break;
-            case 'mace':
-                modifyStoryPar('That mace is a favorite of our blacksmith. Good for smashing Orcs');
-                adventurer.attack = adventurer.attack + weaponStrength[Math.floor(Math.random () * weaponStrength.length)];
-                console.log('Hero attack now ' + adventurer.attack);
-                break;
-            case 'bow':
-                modifyStoryPar('Ah the nimble bow. You plan on taking down Orcs from afar!');
-                adventurer.attack = adventurer.attack + weaponStrength[Math.floor(Math.random () * weaponStrength.length)];
-                console.log('Hero attack now ' + adventurer.attack);
-                break;
-            case 'excalibur':
-                modifyStoryPar('How... how did you know we had Excalibur? That was supposed to be a secret. Very well, you may take Excalibur on your quest.');
-                adventurer.attack = adventurer.attack + 100;
-                console.log('Hero attack now ' + adventurer.attack);
-                break;
-            default:
-                modifyStoryPar('Err. I\'m not sure why you would want to use that as your weapon, but hey, you do you.');
-                adventurer.attack = adventurer.attack + 5;
-                console.log('Hero attack now ' + adventurer.attack);
-                                 } //End Weapon Select
-        modifyStoryPar('We are so happy for you to be helping us. I know that it is a long and dangerous road ahead.')
-        //sequenceOne (); //Start Next Function
-    } else {
-        modifyStoryPar('Well fine. It\'s not like we don\'t have women or children or anything. Just leave us to die. That\'s cool.')
-        modifyStoryPar('Jerk.');
-    }
-                        console.log('finished gameStart');
-
-}
-
-//FIRST ENCOUNTER WITH ORCS
-function sequenceOne () {
-    alert('With new weapon in hand you set out on your quest.');
-    alert('After an hour of travel you arrive at the base of the Black Mountains. Proceeding with caution you begin climbing toward a small cave on the mountain side.');
-    alert('Half way to the cave you hear a small rockslide to your left. You turn just in time to dodge an incoming arrow. An orc comes barreling toward you.');
-    orcBattle ();
-    sequenceTwo ();
-}
-/*
-function attackDamage(damageTarget, damageSource) {
-    if (damageTarget !== 'Adventurer') {
-        alert('You attack the ' + damageTarget + ' your ' + weapon + ' dealing ' + adventurer.attack + ' damage!');
-    switch(damageTarget) {
-        case 'Orc': 
-            orc.health -= adventurer.attack;
-            console.log('The orc has ' + orc.health + ' health points left.');
-            console.log('The orc has ' + orc.stamina + ' stamina points left.');
-            console.log('The orc has ' + orc.potion + ' potions left.');
-            break;
-        case 'Orc Pair': 
-            orcPair.health -= adventurer.attack;
-            console.log('The Orc Pair has ' + orcPair.health + ' health points left.');
-            console.log('The Orc Pair has ' + orcPair.stamina + ' stamina points left.');
-            console.log('The Orc Pair has ' + orcPair.potion + ' potions left.');
-            break;
-        case 'Troll': 
-            troll.health -= adventurer.attack;
-            console.log('The Troll has ' + troll.health + ' health points left.');
-            console.log('The Troll has ' + troll.stamina + ' stamina points left.');
-            console.log('The Troll has ' + troll.potion + ' potions left.');
-            break;
-        case 'Dragon': 
-            dragon.health -= adventurer.attack;
-            console.log('The Dragon has ' + dragon.health + ' health points left.');
-            console.log('The Dragon has ' + dragon.stamina + ' stamina points left.');
-            console.log('The Dragon has ' + dragon.potion + ' potions left.');
-            break;
-        case 'Leviathan': 
-            leviathan.health -= adventurer.attack;
-            console.log('The Leviathan has ' + leviathan.health + ' health points left.');
-            console.log('The Leviathan has ' + leviathan.stamina + ' stamina points left.');
-            console.log('The Leviathan has ' + leviathan.potion + ' potions left.');
-            break;
-        default: 
-            console.log('Something for attackDamage didn\'t work' + 'damageTarget submitted was: ' + enemy);
-    }
-    } else if (damageTarget === 'Adventurer'){
-            switch(damageSource) {
-        case 'Orc': 
-            alert('You are attacked by the ' + damageSource + 'It attacked with a ' + orc.attackName + ' dealing ' + orc.attack + ' damage!');
-            adventurer.health -= orc.attack;
-            console.log('You have ' + adventurer.health + ' health points left.');
-            console.log('You have ' + adventurer.stamina + ' health points left.');
-            console.log('You have ' + adventurer.potion + ' health points left.');
-            break;
-        case 'Orc Pair': 
-            alert('You are attacked by the ' + damageSource + 'They attacked with a ' + orc.attackName + ' dealing ' + orcPair.attack + ' damage!');
-            adventurer.health -= orcPair.attack;
-            console.log('You have ' + adventurer.health + ' health points left.');
-            console.log('You have ' + adventurer.stamina + ' health points left.');
-            console.log('You have ' + adventurer.potion + ' health points left.');
-            break;
-        case 'Troll': 
-            alert('You are attacked by the ' + damageSource + 'It attacked with a ' + orc.attackName + ' dealing ' + troll.attack + ' damage!');
-            adventurer.health -= troll.attack;
-            console.log('You have ' + adventurer.health + ' health points left.');
-            console.log('You have ' + adventurer.stamina + ' health points left.');
-            console.log('You have ' + adventurer.potion + ' health points left.');
-            break;
-        case 'Dragon': 
-            alert('You are attacked by the ' + damageSource + 'It attacked with its ' + dragon.attackName + ' dealing ' + adventurer.attack + ' damage!');
-            adventurer.health -= dragon.attack;
-            console.log('You have ' + adventurer.health + ' health points left.');
-            console.log('You have ' + adventurer.stamina + ' health points left.');
-            console.log('You have ' + adventurer.potion + ' health points left.');
-            break;
-        case 'Leviathan': 
-            alert('You are attacked by the ' + damageSource + 'It attacked with its ' + leviathan.attackName + ' dealing ' + leviathan.attack + ' damage!');
-            adventurer.health -= leviathan.attack;
-            console.log('You have ' + adventurer.health + ' health points left.');
-            console.log('You have ' + adventurer.stamina + ' health points left.');
-            console.log('You have ' + adventurer.potion + ' health points left.');
-            break;
-        default: 
-            console.log('Something for attackDamage didn\'t work' + 'damageSource submitted was: ' + damageSource);
-    } 
-    }else {
-        console.log('input not correct. damageTarget submitted was: ' + damageTarget + ' damageSource submitted was: ' + damageSource);
-    }
-};
-function orcBattle () {
-    orc.attack = orcAttackOptions[Math.floor(Math.random () * orcAttackOptions.length)];
-    orc.health = orcHealthOptions[Math.floor(Math.random () * orcHealthOptions.length)];
-    console.log('Your health: ' + adventurer.health + ' -- Your attack strength: ' + adventurer.attack + ' -- You have ' + adventurer.potion + ' potion\(s\)');
-    console.log('Orc attach strength: ' + orc.attack + ' -- Orc health: ' + orc.health);
-    
-    while (adventurer.health > 0 && orc.health > 0) {
-        //AVENTURER SEQUENCE
-        var fightChoice = prompt('Do you want to attack? \'a\', defend \'b\', or drink a potion \'c\'?')
-        if (fightChoice === 'a') {
-                /* var orcReaction = Math.floor(Math.random() * 3 + 1);
-                if (orcReaction = 1) {
-                    alert('You and the Orc attack at the same time! Your weapons catch each other in mid-air, no damage was dealt.');
-                    var fightChoiceStamina = prompt('Use 5 stamina to overpower and deal some damage? \'a\', Step back to prepare for the next attack? \'b\', or Insult opponent? \'c\'?')
-                    if (fightChoiceStamina === 'a'){
-                        
-                    }
-                } else if (orcReaction = 2) {
-                    
-                }*/
-                /*
-                alert('You attack the Orc your ' + weapon + ' dealing ' + adventurer.attack + ' damage!')
-                orc.health = orc.health - adventurer.attack;
-                console.log('The orc has ' + orc.health + ' health points left.');
-                *//*
-            attackDamage('Orc', 'Adventurer');
-        } else if (fightChoice === 'b'){
-            alert('You dodge the orc\'s attack as he lunges toward you.')
-            console.log('No stat change.');
-        } else if (fightChoice === 'c'){
-            if (adventurer.potion > 0) {
-                alert('You drink a potion and immediately feel it running through your veins.');
-                adventurer.health = adventurer.health + potionStrength;
-                adventurer.potion = adventurer.potion - 1;
-                console.log('You have ' + adventurer.health + ' points left and you have ' + adventurer.potion + ' potion\(s\) left.');
-            } else {
-                alert('You don\'t have any potions!! Bad choice');
-            } //END POTION OPTION
-        } else {
-            alert('You fumble over yourself and don\'t do anything.');
-            console.log('No stat change.');
-        } //END AVENTURER SEQUENCE   
-        
-        //ORC SEQUENCE
-        if (orc.health > 0 && fightChoice !== 'b') {
-            alert('The orc swings his rusty blade and slices you across the chest doing ' + orc.attack + ' damage!');
-            adventurer.health = adventurer.health - orc.attack;
-            console.log('You now have ' + adventurer.health + ' health points left.');
-        }
-    } //END ROUND
-}
-    */
